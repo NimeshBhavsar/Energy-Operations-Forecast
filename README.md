@@ -241,14 +241,6 @@ OAUTH_REDIRECT_URI = "http://localhost:8501"
 
 Create the credentials in the [Google Cloud Console](https://console.cloud.google.com/) as an **OAuth 2.0 Client ID** of type *Web application*, with both the JavaScript origin and the redirect URI set to your app URL.
 
-## Limitations
-
-- **The baseline model is heuristic, not predictive.** It reproduces daily and weekly shape from historical means; it does not learn from the lag/rolling features, and it will not anticipate a specific price event.
-- **No backtesting or accuracy metrics.** There is no validation harness, no MAE/RMSE computation, and no holdout evaluation in this repository.
-- **Shock parameters are assumptions.** The 1.3× / 1.15× / 1.5–2.5× multipliers are chosen to represent a stressed market, not fitted to historical extreme events.
-- **Short history.** ~9 weeks of winter/early-spring data. Summer demand and price behaviour in the NEM differs substantially and is not represented.
-- **No live market feed.** The pipeline reads a static Parquet snapshot; it does not connect to AEMO or a weather API at runtime.
-
 ## Roadmap
 
 - Replace the heuristic generator with a trained model (gradient boosting on the existing lag/rolling features is the natural first step) behind the same `_forecast_price()` / `_forecast_demand()` interface.
