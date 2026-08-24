@@ -1,0 +1,33 @@
+# Environment and Secrets
+.env
+.streamlit/secrets.toml
+app/.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+ENV/
+
+# Logs
+*.log
+logs/
+
+# Data files (keep structure, ignore content for large files)
+# *.parquet
+# *.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+.streamlit/

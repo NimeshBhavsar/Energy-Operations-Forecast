@@ -1,0 +1,12 @@
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+plotly>=5.15.0
+pyarrow>=12.0.0
+
+# Google OAuth2 Authentication
+requests>=2.31.0
+
+# Airflow is only available via the "apache-airflow" package and currently lacks
+# Python 3.13 wheels. Install it in a separate Python<=3.12 env when needed.
+apache-airflow>=2.10.3; python_version < "3.13"
