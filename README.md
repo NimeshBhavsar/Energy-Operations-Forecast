@@ -1,234 +1,262 @@
-# ⚡ Energy Operations Forecast: Automated Intelligence for Power Trading & Risk Management
+# ⚡ Energy Operations Forecast
 
-> **Advanced Energy Market Forecasting Platform | Predictive Analytics & Automated Pipeline for Deregulated Electricity Markets**
+> Short-term price and demand forecasting for the Australian National Electricity Market (NEM), with scenario stress-testing, an executive Streamlit dashboard, and automated report delivery.
 
-## 🎯 Project Overview & Key Objectives
-
-**What it does:** End-to-end energy market intelligence platform that automates forecasting for power trading operations, enabling teams to predict price volatility and demand fluctuations with 95%+ reliability.
-
-**Built for:** Energy companies in deregulated markets managing 500MW+ portfolios
-
-**Key Problems Solved:**
-- ❌ **Manual forecasting** (8-10 hours/week) → ✅ **Automated pipeline**
-- ❌ **Reactive trading** ($50-120/MWh losses) → ✅ **Proactive risk management**
-- ❌ **Missed arbitrage** → ✅ **$2-5M annual opportunities captured**
-
-**Business Impact:**
-- 🚀 **$500K-$5M annual profits** through optimized hedging & arbitrage
-- ⚡ **95%+ forecast accuracy** with scenario modeling (baseline, shock, delta)
-- 📊 **Real-time executive dashboards** for data-driven decision-making
-- 🔄 **Automated email reports** with cron scheduling
-
-**Key Technologies:** Python, Streamlit, Plotly, Pandas, OAuth2, Power BI Integration
-
-
-
----
-
-## 📊 Key Business Metrics & Results
-
-**Price Volatility Analysis:**
-- Shock scenarios: **2.5x higher volatility**
-- Extreme weather spikes: **Up to 300%** price increases
-- Potential losses avoided: **$50-120/MWh**
-
-**Regional Arbitrage Opportunities:**
-- Average price differences: **$8-15/MWh** between zones
-- Peak congestion spread: **$45/MWh**
-- Annual arbitrage potential: **$2-5M** for 500MW portfolios
-
-**Weather Impact Correlation:**
-- Temperature vs. prices: **>0.6 correlation** during summer peaks
-- Renewable patterns: **Predictable intraday trading windows**
-
-**Automation Efficiency:**
-- Manual work reduction: **8-10 hours/week**
-- Forecast accuracy: **95%+**
-- Proactive portfolio adjustments enabled
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B?logo=streamlit&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-5.15%2B-3F4F75?logo=plotly&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.0%2B-150458?logo=pandas&logoColor=white)
 
 ---
 
 ## Table of Contents
-- [⚡ Energy Operations Forecast: Automated Intelligence for Power Trading \& Risk Management](#-energy-operations-forecast-automated-intelligence-for-power-trading--risk-management)
-  - [🎯 Project Overview \& Key Objectives](#-project-overview--key-objectives)
-  - [📊 Key Business Metrics \& Results](#-key-business-metrics--results)
-  - [Table of Contents](#table-of-contents)
-  - [Business Problem](#business-problem)
-  - [Data Structure Overview](#data-structure-overview)
-  - [Methodology and Workflow](#methodology-and-workflow)
-  - [Tools and Technologies](#tools-and-technologies)
-  - [Key Findings and Results](#key-findings-and-results)
-  - [Recommendations](#recommendations)
-  - [Limitations and Next Steps](#limitations-and-next-steps)
-  - [Technical Implementation](#technical-implementation)
-  - [Getting Started](#getting-started)
-    - [Quick Setup](#quick-setup)
-    - [Production Setup with Gmail Authentication \& Automation](#production-setup-with-gmail-authentication--automation)
-      - [1. Configure Gmail Authentication](#1-configure-gmail-authentication)
-      - [2. Set up Google OAuth2 (Required for Production)](#2-set-up-google-oauth2-required-for-production)
-      - [3. Set up Gmail App Password (for SMTP)](#3-set-up-gmail-app-password-for-smtp)
-      - [4. Configure Automated Cron Job (Weekly Reports)](#4-configure-automated-cron-job-weekly-reports)
-      - [5. Test the Full System](#5-test-the-full-system)
-      - [6. Production Deployment](#6-production-deployment)
-  - [Deployment Options](#deployment-options)
-    - [Demo Features](#demo-features)
-  - [Business Value for Energy Companies](#business-value-for-energy-companies)
 
-## Business Problem
-Energy companies in deregulated electricity markets face critical challenges with price volatility and demand forecasting, where inaccurate predictions can result in $50-120/MWh losses during extreme events or missed arbitrage opportunities worth $2-5M annually. Manual processes are time-intensive (8-10 hours/week) and prone to errors, leaving trading teams reactive rather than proactive. This platform solves these issues by automating scenario-based forecasts (baseline, shock, delta) and delivering real-time executive dashboards for data-driven decision-making.
-
-## Data Structure Overview
-The dataset (`fact_energy_market.parquet`) is a time-series Parquet file structured for high-performance analytics, containing over 1M records of hourly electricity market data across multiple regions. It includes key tables for temporal, geographic, price, demand, and weather dimensions, enabling complex multi-dimensional analysis. Key columns feature temporal granularity (datetime), regional segmentation (e.g., zones), price forecasts ($/MWh), demand projections (MW), and simulated weather variables. The data supports scenario modeling with three output tables (baseline, shock, delta) for Power BI integration. An ERD (Entity-Relationship Diagram) can be visualized as follows: `datetime` → linked to `region` → forecasts for `price`, `demand`, and `weather` variables, with scenarios derived from historical and simulated data. This structure captures the domain's complexity, including volatility patterns and renewable energy impacts, allowing for accurate predictive modeling.
-
-## Methodology and Workflow
-1. **Data Ingestion**: Automated pipeline pulls data from Parquet files and external APIs (e.g., weather data).
-2. **Data Cleaning & Preparation**: Remove duplicates, handle missing values, and standardize formats using Pandas and NumPy.
-3. **Exploratory Data Analysis (EDA)**: Analyze correlations (e.g., temperature vs. price >0.6 during peaks) and volatility patterns.
-4. **Forecasting Models**: Generate baseline (linear regression), shock (Monte Carlo simulations for extremes), and delta (comparative analysis) scenarios.
-5. **Visualization & Reporting**: Create interactive dashboards with Plotly; automate weekly email reports via cron jobs.
-6. **Evaluation**: Validate forecasts against actuals with metrics like MAE (Mean Absolute Error) and correlation coefficients.
-
-## Tools and Technologies
-- **Programming**: Python (Pandas, NumPy, Plotly, Streamlit)
-- **Data Processing**: Parquet files, CSV outputs, Power BI integration
-- **Automation**: Cron scheduling, automated email scripts
-- **Visualization**: Streamlit dashboards, Google OAuth2 authentication
-- **Deployment**: Local/Cloud (Streamlit Cloud), Enterprise (Power BI)
-- **Key Techniques**: Time-series forecasting, statistical modeling, scenario analysis, EDA
-
-## Key Findings and Results
-- **Price Volatility**: Shock scenarios show 2.5x higher volatility, with 300% spikes during weather events.
-- **Regional Insights**: $8-15/MWh average price differences, peaking at $45/MWh during congestion.
-- **Weather Impact**: Temperature correlates >0.6 with prices; solar/wind patterns enable intraday trading.
-- **Automation Reliability**: 95%+ forecast accuracy, reducing manual work by 8-10 hours/week.
-- **Business Impact**: Potential $500K-$5M annual gains in risk reduction and arbitrage for 500MW portfolios.
-
-## Recommendations
-- **Risk Management**: Implement dynamic hedging strategies based on platform-generated VaR metrics to reduce portfolio losses by 25-40% during high-volatility periods, directly addressing $50-120/MWh exposure risks.
-- **Arbitrage Opportunities**: Deploy automated trading rules using the platform's regional heat maps to capture $2-5M annually in arbitrage profits for 500MW portfolios, capitalizing on $8-45/MWh price differentials.
-- **Weather-Driven Optimization**: Integrate real-time weather APIs to enhance forecast accuracy by 15-20%, enabling strategic positioning around temperature-driven demand (correlation >0.6) and renewable output variations for better intraday trading.
-- **Operational Efficiency**: Expand automation with real-time alerts for $100/MWh+ spikes, reducing manual work by an additional 5-8 hours/week and enabling proactive adjustments worth $500K-1.5M in avoided losses annually.
-
-## Limitations and Next Steps
-- **Limitations**: Relies on historical data; external factors (e.g., policy changes) may affect accuracy. No real-time market integration beyond weather APIs.
-- **Next Steps**: Integrate live market feeds, expand to more regions, and add machine learning models for higher precision. Explore API endpoints for real-time access.
-
-## Technical Implementation
-Two-layer architecture:
-- **Layer 1: Automation Pipeline** – Forecasting engine with cron scheduling, logging, and Power BI export.
-- **Layer 2: Executive Dashboard** – Interactive Streamlit app with OAuth2 and Plotly visualizations.
-
-## Getting Started
-
-### Quick Setup
-```bash
-# Clone and setup
-git clone <repository>
-cd energy-ops-forecast
-pip install -r requirements.txt
-
-# Generate forecasts
-python run_forecast.py
-
-# Launch dashboard (Demo Mode)
-streamlit run app/Home.py
-```
-
-### Production Setup with Gmail Authentication & Automation
-
-For organizations wanting to implement the full automated email system with cron scheduling:
-
-#### 1. Configure Gmail Authentication
-```bash
-# Copy environment template
-cp .env.example .env
-
-# Edit .env file with your credentials
-nano .env
-```
-
-Add your Gmail OAuth2 credentials:
-```bash
-export GOOGLE_CLIENT_ID="your-google-client-id-here"
-export GOOGLE_CLIENT_SECRET="your-google-client-secret-here"
-export OAUTH_REDIRECT_URI="http://localhost:8501"
-
-# Gmail SMTP for automated reports
-export SMTP_HOST="smtp.gmail.com"
-export SMTP_PORT="587"
-export SMTP_USER="your-email@gmail.com"
-export SMTP_PASS="your-gmail-app-password"
-export SMTP_USE_TLS="true"
-```
-
-#### 2. Set up Google OAuth2 (Required for Production)
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing
-3. Enable APIs: `Google+ API`, `People API`, `OAuth2 API`
-4. Go to **APIs & Services → Credentials**
-5. Create **OAuth 2.0 Client ID**:
-   - Application type: **Web application**
-   - Authorized JavaScript origins: `http://localhost:8501`
-   - Authorized redirect URIs: `http://localhost:8501`
-6. Copy Client ID and Secret to your `.env` file
-
-#### 3. Set up Gmail App Password (for SMTP)
-1. Enable 2-Factor Authentication on your Gmail account
-2. Go to **Google Account → Security → App passwords**
-3. Generate app password for "Mail"
-4. Use this 16-character password in `SMTP_PASS`
-
-#### 4. Configure Automated Cron Job (Weekly Reports)
-```bash
-# Edit crontab for weekly automation
-crontab -e
-
-# Add this line for Monday 6:00 AM execution
-0 6 * * 1 cd /path/to/energy-ops-forecast && python scripts/automated_email_forecast.py
-```
-
-#### 5. Test the Full System
-```bash
-# Test forecast generation
-python run_forecast.py
-
-# Test email functionality
-python -c "
-from pipeline.notifications import send_email_report
-send_email_report('test@company.com', 'Weekly Energy Forecast', 'Test message')
-"
-
-# Launch with authentication
-streamlit run app/Home.py
-```
-
-#### 6. Production Deployment
-For enterprise deployment:
-- **Streamlit Cloud**: Deploy with secrets management
-- **Docker**: Use provided Dockerfile for containerization
-- **Power BI**: CSV outputs auto-refresh via scheduled data refresh
-- **Monitoring**: Set up logging and alerting for forecast accuracy
-
-## Deployment Options
-- **Local Development**: Streamlit with Google OAuth2.
-- **Production**: Streamlit Cloud with automated email notifications.
-- **Enterprise**: Power BI integration with scheduled data refresh.
-
-### Demo Features
-- **Interactive Dashboard**: 7-day forecast with date range picker & region filters
-- **Real-time KPIs**: Price/demand metrics update instantly when filters change
-- **Financial Calculator**: Portfolio risk analysis with configurable MW exposure
-- **Instant Preview**: No authentication required - full feature access for evaluation
-
-## Business Value for Energy Companies
-**Solves Critical Problems:**
-- ❌ **Manual Analysis Bottleneck** → ✅ **Automated 30-min Forecasts**
-- ❌ **Reactive Trading Losses** → ✅ **Proactive Risk Management**
-- ❌ **Missed Regional Arbitrage** → ✅ **Real-time Opportunity Alerts**
-- ❌ **Time-intensive Reports** → ✅ **Weekly Automated Email Delivery**
-
-**Immediate Impact:** Transforms 8-10 hour weekly manual processes into automated intelligence, enabling $500K-$5M annual profit optimization through predictive hedging and arbitrage capture.
+- [Overview](#overview)
+- [Why Short-Term Forecasting Matters](#why-short-term-forecasting-matters)
+- [Dashboard](#dashboard)
+- [The Data](#the-data)
+- [How the Forecast Works](#how-the-forecast-works)
+- [Scenario Model](#scenario-model)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Automated Weekly Reports](#automated-weekly-reports)
+- [Power BI Integration](#power-bi-integration)
+- [Authentication](#authentication)
+- [Limitations](#limitations)
+- [Roadmap](#roadmap)
 
 ---
 
-*Built for energy operations teams demanding automation and analytics. Proven in production for 500MW+ portfolios – reducing risks and unlocking profits.*
+## Overview
+
+An end-to-end operational forecasting pipeline for electricity market operations. It takes historical half-hourly market data, produces a 7-day forward forecast of price and demand across three NEM regions, stress-tests that forecast against an extreme scenario, and publishes the results three ways:
+
+1. **An interactive Streamlit dashboard** — five pages covering executive summary, regional comparison, price spikes, weather impact, and scenario analysis.
+2. **CSV outputs** — baseline, shock, and delta files shaped for Power BI ingestion.
+3. **Automated email reports** — the same CSVs delivered on a cron schedule.
+
+The emphasis is on the **operational plumbing**: a reproducible pipeline, scenario comparison, scheduled delivery, and a decision-ready front end. The forecasting model itself is deliberately simple and swappable — see [How the Forecast Works](#how-the-forecast-works).
+
+## Why Short-Term Forecasting Matters
+
+In the NEM, spot prices are set every five minutes and settled half-hourly, and they can move by orders of magnitude within a single trading day. Participants with spot exposure — retailers, large industrial loads, and generators — need a forward view of both price and demand to make hedging, bidding, and load-shifting decisions before the interval arrives.
+
+Two properties of the market make this hard:
+
+- **Volatility is concentrated.** A small number of intervals account for a disproportionate share of total cost. Price spikes cluster around high-temperature, high-demand, low-renewable-output periods.
+- **Regions diverge.** Interconnector constraints mean NSW, QLD, and VIC can price very differently at the same moment, so a single national view hides the picture.
+
+This project is built around those two facts: the shock scenario models the concentrated-volatility case, and every view can be filtered by region.
+
+> **Note:** The dashboard's Financial Impact Calculator estimates cost exposure from a portfolio size **you enter**, applied to the modelled price delta. It is an illustrative sizing tool, not a claim about realised returns.
+
+## Dashboard
+
+| Page | What it shows |
+|---|---|
+| **Home** | Executive summary — headline KPIs, risk assessment, 7-day price/demand overview, financial impact calculator |
+| **Regional Analysis** | Side-by-side comparison across NSW1, QLD1, VIC1, including inter-regional spreads |
+| **Price and Spikes** | Distribution of forecast prices and identification of spike intervals |
+| **Weather Impact** | Relationship between weather drivers (temperature, solar, wind) and price/demand |
+| **Forecast Scenarios** | Baseline vs shock comparison and delta analysis |
+
+All pages share a region selector and a forecast-period date filter.
+
+## The Data
+
+Input is a single Parquet file, `fact_energy_market.parquet`:
+
+| Property | Value |
+|---|---|
+| Records | 9,651 |
+| Regions | `NSW1` (New South Wales), `QLD1` (Queensland), `VIC1` (Victoria) |
+| Interval | 30 minutes |
+| Coverage | 2025-07-06 → 2025-09-11 (~9 weeks) |
+
+**Column groups:**
+
+- **Market** — `RRP` (Regional Reference Price, $/MWh), `TOTALDEMAND` (MW)
+- **Temporal** — `datetime`, `hour`, `day_of_week`, `is_weekend`, `peak_period`
+- **Weather** — `temp_c`, `rh_pct`, `rain_mm`, `sunshine_sec`, `shortwave_wm2`, `wind_speed_ms`
+- **Engineered** — lags (`RRP_lag_1h/12h/24h`, `TOTALDEMAND_lag_*`), rolling means (`*_rolling_3h/6h/24h`), `temp_bin`, `spike_flag`, and a `compound_highTemp_lowSolar_peakHour` interaction flag
+
+The engineered lag and rolling features are present in the dataset and available for modelling, but the current baseline generator does not consume them — see below.
+
+## How the Forecast Works
+
+**Be aware of what this is.** The baseline forecast in `pipeline/operational.py` is a **heuristic profile model**, not a trained statistical or machine-learning model. For each region it takes the historical mean, then applies:
+
+- a **time-of-day multiplier** (peak 07:00–09:00 and 17:00–21:00; off-peak overnight; shoulder otherwise),
+- a **weekend multiplier**,
+- a **Gaussian noise term** for variation.
+
+```
+forecast = historical_regional_mean × hour_multiplier × weekend_multiplier × noise
+```
+
+This produces a plausible, correctly-shaped 7-day half-hourly profile (1,008 rows per scenario: 336 intervals × 3 regions) that exercises the full pipeline end to end. It is **not** a validated predictive model, and no accuracy metrics are computed anywhere in this repository.
+
+The design intent is that `_forecast_price()` and `_forecast_demand()` are the seams where a real model drops in. The lag and rolling features already in the dataset exist for exactly that purpose. See [Roadmap](#roadmap).
+
+## Scenario Model
+
+Three outputs are produced on every run:
+
+| Output | Description |
+|---|---|
+| `forecast_baseline.csv` | Base-case forward profile |
+| `forecast_scenario_shock.csv` | Stressed case — price scaled ~1.3×, demand ~1.15×, with an additional 1.5–2.5× multiplier applied to peak intervals |
+| `forecast_scenario_delta.csv` | Interval-by-interval difference (shock − baseline), for impact analysis |
+
+The delta file is what drives the risk assessment and financial impact views in the dashboard.
+
+## Project Structure
+
+```
+.
+├── app/                            # Streamlit dashboard
+│   ├── Home.py                     # Executive summary + run/email controls
+│   ├── auth.py                     # Google OAuth2 (currently in demo mode)
+│   └── pages/                      # Regional, spikes, weather, scenarios
+├── pipeline/
+│   └── operational.py              # Forecast generation (baseline/shock/delta)
+├── scripts/
+│   ├── automated_email_forecast.py # Run forecast + email, for cron
+│   └── setup_cron_env.sh           # Loads env vars for the cron job
+├── scheduling/
+│   ├── airflow_dag.py              # Airflow DAG example
+│   ├── cron_example.sh
+│   └── run_weekly_forecast.sh
+├── data/                           # Generated CSV outputs
+├── fact_energy_market.parquet      # Input dataset
+└── run_forecast.py                 # CLI entry point
+```
+
+## Quick Start
+
+```bash
+git clone https://github.com/<your-username>/energy-ops-forecast.git
+cd energy-ops-forecast
+
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+On Windows, activate with `.venv\Scripts\activate` instead.
+
+Generate the forecast CSVs, then launch the dashboard:
+
+```bash
+python run_forecast.py
+streamlit run app/Home.py
+```
+
+The dashboard opens at `http://localhost:8501`.
+
+**`run_forecast.py` options:**
+
+| Flag | Purpose |
+|---|---|
+| `--input` | Input parquet path (default `fact_energy_market.parquet`) |
+| `--output-dir` | Output directory for CSVs (default `data`) |
+| `--verbose` | Verbose logging |
+| `--dry-run` | Validate inputs without writing outputs |
+
+## Configuration
+
+Email delivery needs SMTP credentials. Provide them either as environment variables or via Streamlit secrets — the app checks secrets first, then falls back to the environment.
+
+**Option A — `.streamlit/secrets.toml`** (copy the provided `.streamlit/secrets.toml.example`):
+
+```toml
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = "587"
+SMTP_USER = "your-email@gmail.com"
+SMTP_PASS = "your-app-password"
+SMTP_USE_TLS = "true"
+```
+
+**Option B — `.env`** (used by the cron script):
+
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
+SMTP_USE_TLS=true
+```
+
+For Gmail, `SMTP_PASS` must be a **16-character App Password**, not your account password. Enable 2-Factor Authentication, then generate one under **Google Account → Security → App passwords**.
+
+> Both `.env` and `.streamlit/secrets.toml` are gitignored. Never commit credentials.
+
+## Automated Weekly Reports
+
+`scripts/automated_email_forecast.py` regenerates the forecast and emails the three CSVs in a single step — intended to run unattended.
+
+```bash
+mkdir -p logs
+crontab -e
+```
+
+```cron
+# Every Monday at 06:00
+0 6 * * 1 cd /path/to/energy-ops-forecast && python scripts/automated_email_forecast.py
+```
+
+The `logs/` directory must exist before the first run — the script opens a log file there on import.
+
+Use `scripts/setup_cron_env.sh` if your cron environment needs the variables loaded from `.env` first. See [CRON_SETUP.md](CRON_SETUP.md) for details, and [scheduling/airflow_dag.py](scheduling/airflow_dag.py) for an Airflow alternative.
+
+The dashboard's **Run Forecast & Email** button triggers the same forecast-and-send flow interactively.
+
+## Power BI Integration
+
+The three CSVs in `data/` are written flat and typed for direct import:
+
+| Column | Type |
+|---|---|
+| `datetime` | timestamp (30-min intervals) |
+| `region` | text (`NSW1` / `QLD1` / `VIC1`) |
+| `forecast_price` | decimal ($/MWh) |
+| `forecast_demand` | decimal (MW) |
+
+The delta file carries `delta_price` and `delta_demand` in place of the forecast columns. Point a scheduled Power BI refresh at the `data/` directory to pick up each new run.
+
+## Authentication
+
+`app/auth.py` contains a full Google OAuth2 implementation — authorization-code flow with PKCE, state verification, and token exchange.
+
+**It is currently bypassed.** `require_login()` short-circuits to a demo user so the dashboard can be evaluated without credentials. The original gated implementation is preserved as `require_login_original()`.
+
+To enable real authentication, swap the call in `app/Home.py` to `require_login_original()` and set:
+
+```toml
+GOOGLE_CLIENT_ID = "..."
+GOOGLE_CLIENT_SECRET = "..."
+OAUTH_REDIRECT_URI = "http://localhost:8501"
+```
+
+Create the credentials in the [Google Cloud Console](https://console.cloud.google.com/) as an **OAuth 2.0 Client ID** of type *Web application*, with both the JavaScript origin and the redirect URI set to your app URL.
+
+## Limitations
+
+- **The baseline model is heuristic, not predictive.** It reproduces daily and weekly shape from historical means; it does not learn from the lag/rolling features, and it will not anticipate a specific price event.
+- **No backtesting or accuracy metrics.** There is no validation harness, no MAE/RMSE computation, and no holdout evaluation in this repository.
+- **Shock parameters are assumptions.** The 1.3× / 1.15× / 1.5–2.5× multipliers are chosen to represent a stressed market, not fitted to historical extreme events.
+- **Short history.** ~9 weeks of winter/early-spring data. Summer demand and price behaviour in the NEM differs substantially and is not represented.
+- **No live market feed.** The pipeline reads a static Parquet snapshot; it does not connect to AEMO or a weather API at runtime.
+
+## Roadmap
+
+- Replace the heuristic generator with a trained model (gradient boosting on the existing lag/rolling features is the natural first step) behind the same `_forecast_price()` / `_forecast_demand()` interface.
+- Add a backtesting harness with MAE/RMSE, and pinball loss for probabilistic forecasts.
+- Fit shock scenarios to historical spike distributions rather than fixed multipliers.
+- Ingest live AEMO dispatch data and a weather API for rolling re-forecasts.
+- Add spike-probability classification using the existing `spike_flag` and compound-condition features.
+
+---
+
+*Built as a demonstration of an end-to-end energy operations forecasting pipeline — data to dashboard to scheduled delivery.*
